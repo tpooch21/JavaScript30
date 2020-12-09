@@ -21,6 +21,21 @@
   <img src="https://source.unsplash.com/7bwQXzbF6KE/800x500">
 
   <style>
+    :root {
+      --base: #ffc600;
+      --spacing: 10px;
+      --blur: 10px;
+    }
+
+    img {
+      padding: var(--spacing);
+      background: var(--base);
+      filter: blur(var(--blur));
+    }
+
+    .hl {
+      color: var(--base);
+    }
 
     /*
       misc styles, nothing to do with CSS variables
@@ -42,9 +57,25 @@
     input {
       width: 100px;
     }
+
   </style>
 
   <script>
+    /*
+      Add event handler to inputs' parent div
+        takes value of input being changed, as well as name into account
+        assign value to relevant
+    */
+    const controlContainer = document.querySelector('.controls');
+    const root = document.querySelector(':root');
+
+    const updateVariable = (e) => {
+      const suffix = e.target.dataset.sizing || '';
+      root.style.setProperty(`--${e.target.name}`, `${e.target.value}${suffix}`);
+    };
+
+    controlContainer.addEventListener('change', updateVariable);
+
   </script>
 
 </body>
